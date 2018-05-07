@@ -1,0 +1,919 @@
+<html>
+<head>
+
+<script type="text/javascript" src="jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="introtoapps.min.js"></script>
+<script type="text/javascript">
+
+//define a shotter to record number
+
+var shotter =1;
+
+
+
+$(document).ready(function() {
+// define devicewidth and height which is for calculate the scale from the original size
+var devicewidth = ($(window).width());
+var deviceheight = ($(window).height());
+
+//For define a variable name is background music, which is for get to play the music.
+var backgroundMusic = document.getElementById("backgroundmusic");
+backgroundMusic.play();
+
+//which I have  divided the device area by the original area to get the value of scale, and then use this value to scale for the Introduction,Introduction2 and the font inside the introduction.
+var scale1= (devicewidth*deviceheight)/(1903*1002);
+
+var topposition = scale1*100;
+var topposition2 = scale1*400;
+var leftposition = scale1*50;
+var rightposition = scale1*0.1;
+
+//To append the introduction of this game, and use those value which defined above to do the zoom of thoese text when user use into different resolution.
+$("body").append("<div class='fontsize1'style='top:"+ topposition2 +"px;left:"+ leftposition +"px;transform:scale("+scale1+");'><p><strong><em><u>protect Earth</u></em></strong></p><p>email: mading@deakin.edu.au</p><p>developed by</p><p>Dingan Ma</p><p>ID:216328682</p><p>&nbsp;</p>  </div>");
+
+
+$("body").append("<div class='fontsize2'style='top:"+ topposition +"px;right:"+ rightposition +"px;transform:scale("+scale1+");'> <p><strong>There are three levels in this game, hope you can have fun and obtain some celestial knowledge in this game!</strong></p><p><strong> \(^o^)/</strong></p></div>");
+
+
+//I design for three botton there to switch between those three level, which the function is remove all the stuff that's not related to this level, and add the object which is in this level.
+
+	$("#btn1").onTap(function()
+
+	{
+	    //firstly remove all the thing that is not relevant to this level
+		$(".fontsize1").remove();
+		$(".fontsize2").remove();
+		$(".Mercury").remove();
+		$(".neptune").remove();
+		$(".Saturn").remove();
+		$(".Uranus").remove();
+		$(".Venus").remove();
+		$(".mars").remove();
+		$(".Jupiter").remove();
+		$(".Earth").remove();
+
+		$(".shotter").remove();
+		$(document).unbind(event.onTap);
+
+
+
+	/*
+	make a alert to teach players how to play
+	*/
+
+	alert('This is for level 1. Shot the shotter to break the planets in the screen. More importantly, the planets in the scree was rank in row by their distance from the sun!');
+
+	//make some objects
+	for (var m=1; m<=3;m++)
+
+	{
+			var toplength = m * 100 * scale1;
+			var leftdistance1 = 100;
+			var leftdistance2 = 200;
+			var leftdistance3 = 300;
+			var leftdistance4 = 400;
+			var leftdistance5 = 500;
+			var leftdistance6 = 600;
+			var leftdistance7 = 700;
+			var leftdistance8 = 800;
+
+
+	  $("body").append("<div class='Mercury' style='top:"+ toplength +"px; left:"+ leftdistance1 +"px;transform:scale("+scale1+")'></div>");
+	  $("body").append("<div class='Venus' style='top:"+ toplength +"px; left:"+ leftdistance2 +"px;transform:scale("+scale1+")'></div>");
+	  $("body").append("<div class='Earth' style='top:"+ toplength +"px; left:"+ leftdistance3 +"px;transform:scale("+scale1+")'></div>");
+	  $("body").append("<div class='mars' style='top:"+ toplength +"px; left:"+ leftdistance4 +"px;transform:scale("+scale1+")'></div>");
+		$("body").append("<div class='Jupiter' style='top:"+ toplength +"px; left:"+ leftdistance5 +"px;transform:scale("+scale1+")'></div>");
+		$("body").append("<div class='Saturn' style='top:"+ toplength +"px; left:"+ leftdistance6 +"px;transform:scale("+scale1+")'></div>");
+		$("body").append("<div class='Uranus' style='top:"+ toplength +"px; left:"+ leftdistance7 +"px;transform:scale("+scale1+")'></div>");
+		$("body").append("<div class='neptune' style='top:"+ toplength +"px; left:"+ leftdistance8 +"px;transform:scale("+scale1+")'></div>");
+	}
+
+		//Define the move direction and speed
+			$(".Earth").moveTo(90);
+			$(".Earth").speed(0.3);
+			$(".Earth").moveTo(100);
+			$(".Earth").speed(0.1);
+			$(".Earth").autoBounceOff(true);
+
+			$(".mars").moveTo(90);
+			$(".mars").speed(0.3);
+			$(".mars").moveTo(100);
+			$(".mars").speed(0.1);
+			$(".mars").autoBounceOff(true);
+
+			$(".Jupiter").moveTo(90);
+			$(".Jupiter").speed(0.1);
+			$(".Jupiter").moveTo(100);
+			$(".Jupiter").speed(0.1);
+			$(".Jupiter").autoBounceOff(true);
+
+
+			$(".Mercury").moveTo(90);
+			$(".Mercury").speed(0.1);
+			$(".Mercury").moveTo(100);
+			$(".Mercury").speed(0.1);
+			$(".Mercury").autoBounceOff(true);
+
+			$(".Venus").moveTo(90);
+			$(".Venus").speed(0.1);
+			$(".Venus").moveTo(100);
+			$(".Venus").speed(0.1);
+			$(".Venus").autoBounceOff(true);
+
+			$(".neptune").moveTo(90);
+			$(".neptune").speed(0.1);
+			$(".neptune").moveTo(100);
+			$(".neptune").speed(0.1);
+			$(".neptune").autoBounceOff(true);
+
+			$(".Uranus").moveTo(90);
+			$(".Uranus").speed(0.1);
+			$(".Uranus").moveTo(100);
+			$(".Uranus").speed(0.1);
+			$(".Uranus").autoBounceOff(true);
+
+			$(".Saturn").moveTo(90);
+			$(".Saturn").speed(0.1);
+			$(".Saturn").moveTo(100);
+			$(".Saturn").speed(0.1);
+			$(".Saturn").autoBounceOff(true);
+		//Add a onCollision function
+			$(".Earth").onCollision(function(otherObject){
+			if(otherObject.hasClass("shotter")){
+			 this.remove();
+	}});
+
+	$(".mars").onCollision(function(otherObject){
+	if(otherObject.hasClass("shotter")){
+	 this.remove();
+}});
+
+$(".Jupiter").onCollision(function(otherObject){
+if(otherObject.hasClass("shotter")){
+ this.remove();
+}});
+
+$(".Mercury").onCollision(function(otherObject){
+if(otherObject.hasClass("shotter")){
+ this.remove();
+}});
+
+$(".Venus").onCollision(function(otherObject){
+if(otherObject.hasClass("shotter")){
+ this.remove();
+}});
+
+$(".neptune").onCollision(function(otherObject){
+if(otherObject.hasClass("shotter")){
+ this.remove();
+}});
+
+$(".Uranus").onCollision(function(otherObject){
+if(otherObject.hasClass("shotter")){
+ this.remove();
+}});
+
+$(".Saturn").onCollision(function(otherObject){
+if(otherObject.hasClass("shotter")){
+ this.remove();
+}});
+
+
+	//add a ontap function if user tap on screen then will fire a shotter in the horizontal direction which user clicked.
+
+	   $(document).onTap(function(event){
+
+		$("body").append("<div id='shotter"+shotter +"'style='transform:scale("+scale1+");'class='shotter'></div>");
+		$("#shotter" + shotter).moveTo(0);
+		$("#shotter" + shotter).speed(0.3);
+		$("#shotter" + shotter).css("bottom","0px");
+		$("#shotter" + shotter).css("left",event.clientX + "px");
+		shotter++;
+
+	})
+
+	});
+
+
+	// level2
+
+
+	 $("#btn2").onTap(function()
+
+	 {
+		 $(".fontsize1").remove();
+		 $(".fontsize2").remove();
+		 $(".Mercury").remove();
+		 $(".neptune").remove();
+		 $(".Saturn").remove();
+		 $(".Uranus").remove();
+		 $(".Venus").remove();
+		 $(".mars").remove();
+		 $(".Jupiter").remove();
+		 $(".Earth").remove();
+
+		 $(".shotter").remove();
+		 $(document).unbind(event.onTap);
+
+
+
+	 /*
+	 make a alert to teach players how to play
+	 */
+
+	 alert('This is for level 2. In this level you should break all the other planet except Earth');
+
+	 //define some objects
+	 for (var m=1; m<=3;m++)
+
+	 {
+			 var toplength = m * 100 * scale1;
+			 var leftdistance1 = 100;
+			 var leftdistance2 = 200;
+			 var leftdistance3 = 300;
+			 var leftdistance4 = 400;
+			 var leftdistance5 = 500;
+			 var leftdistance6 = 600;
+			 var leftdistance7 = 700;
+			 var leftdistance8 = 800;
+
+
+		 $("body").append("<div class='Mercury' style='top:"+ toplength +"px; left:"+ leftdistance1 +"px;transform:scale("+scale1+")'></div>");
+		 $("body").append("<div class='Venus' style='top:"+ toplength +"px; left:"+ leftdistance2 +"px;transform:scale("+scale1+")'></div>");
+		 $("body").append("<div class='Earth' style='top:"+ toplength +"px; left:"+ leftdistance3 +"px;transform:scale("+scale1+")'></div>");
+		 $("body").append("<div class='mars' style='top:"+ toplength +"px; left:"+ leftdistance4 +"px;transform:scale("+scale1+")'></div>");
+		 $("body").append("<div class='Jupiter' style='top:"+ toplength +"px; left:"+ leftdistance5 +"px;transform:scale("+scale1+")'></div>");
+		 $("body").append("<div class='Saturn' style='top:"+ toplength +"px; left:"+ leftdistance6 +"px;transform:scale("+scale1+")'></div>");
+		 $("body").append("<div class='Uranus' style='top:"+ toplength +"px; left:"+ leftdistance7 +"px;transform:scale("+scale1+")'></div>");
+		 $("body").append("<div class='neptune' style='top:"+ toplength +"px; left:"+ leftdistance8 +"px;transform:scale("+scale1+")'></div>");
+	 }
+
+		 //Define the move direction and speed of objects
+			 $(".Earth").moveTo(90);
+			 $(".Earth").speed(0.3);
+			 $(".Earth").moveTo(100);
+			 $(".Earth").speed(0.1);
+			 $(".Earth").autoBounceOff(true);
+
+			 $(".mars").moveTo(90);
+			 $(".mars").speed(0.3);
+			 $(".mars").moveTo(100);
+			 $(".mars").speed(0.1);
+			 $(".mars").autoBounceOff(true);
+
+			 $(".Jupiter").moveTo(90);
+			 $(".Jupiter").speed(0.1);
+			 $(".Jupiter").moveTo(100);
+			 $(".Jupiter").speed(0.1);
+			 $(".Jupiter").autoBounceOff(true);
+
+
+			 $(".Mercury").moveTo(90);
+			 $(".Mercury").speed(0.1);
+			 $(".Mercury").moveTo(100);
+			 $(".Mercury").speed(0.1);
+			 $(".Mercury").autoBounceOff(true);
+
+			 $(".Venus").moveTo(90);
+			 $(".Venus").speed(0.1);
+			 $(".Venus").moveTo(100);
+			 $(".Venus").speed(0.1);
+			 $(".Venus").autoBounceOff(true);
+
+			 $(".neptune").moveTo(90);
+			 $(".neptune").speed(0.1);
+			 $(".neptune").moveTo(100);
+			 $(".neptune").speed(0.1);
+			 $(".neptune").autoBounceOff(true);
+
+			 $(".Uranus").moveTo(90);
+			 $(".Uranus").speed(0.1);
+			 $(".Uranus").moveTo(100);
+			 $(".Uranus").speed(0.1);
+			 $(".Uranus").autoBounceOff(true);
+
+			 $(".Saturn").moveTo(90);
+			 $(".Saturn").speed(0.1);
+			 $(".Saturn").moveTo(100);
+			 $(".Saturn").speed(0.1);
+			 $(".Saturn").autoBounceOff(true);
+		 //Add a onCollision function
+			 $(".Earth").onCollision(function(otherObject){
+			 if(otherObject.hasClass("shotter")){
+				 backgroundMusic.pause();
+				 $(".Mercury").remove();
+				 $(".neptune").remove();
+				 $(".Saturn").remove();
+				 $(".Uranus").remove();
+				 $(".Venus").remove();
+				 $(".mars").remove();
+				 $(".Jupiter").remove();
+				 this.remove()
+
+				 $("body").append("<div class='fontsize1'style='top:"+ topposition2 +"px;left:"+ leftposition +"px;transform:scale("+scale1+");'><p><strong><em><u>you loose the game because you can not break the Earth in this level!</u></em></strong></p></div>");
+	 }});
+
+	 $(".mars").onCollision(function(otherObject){
+	 if(otherObject.hasClass("shotter")){
+		this.remove();
+ }});
+
+ $(".Jupiter").onCollision(function(otherObject){
+ if(otherObject.hasClass("shotter")){
+	this.remove();
+ }});
+
+ $(".Mercury").onCollision(function(otherObject){
+ if(otherObject.hasClass("shotter")){
+	this.remove();
+ }});
+
+ $(".Venus").onCollision(function(otherObject){
+ if(otherObject.hasClass("shotter")){
+	this.remove();
+ }});
+
+ $(".neptune").onCollision(function(otherObject){
+ if(otherObject.hasClass("shotter")){
+	this.remove();
+ }});
+
+ $(".Uranus").onCollision(function(otherObject){
+ if(otherObject.hasClass("shotter")){
+	this.remove();
+ }});
+
+ $(".Saturn").onCollision(function(otherObject){
+ if(otherObject.hasClass("shotter")){
+	this.remove();}
+	  });
+		$(document).onTap(function(event){
+
+	 $("body").append("<div id='shotter"+shotter +"'style='transform:scale("+scale1+");'class='shotter'></div>");
+	 $("#shotter" + shotter).moveTo(0);
+	 $("#shotter" + shotter).speed(0.5);
+	 $("#shotter" + shotter).css("bottom","0px");
+	 $("#shotter" + shotter).css("left",event.clientX + "px");
+	 shotter++;
+
+ })
+
+		});
+
+
+		// Add the function for botton3
+		$("#btn3").onTap(function()
+
+	 {  				$(".fontsize1").remove();
+	 		$(".fontsize2").remove();
+	 		$(".Mercury").remove();
+	 		$(".neptune").remove();
+	 		$(".Saturn").remove();
+	 		$(".Uranus").remove();
+	 		$(".Venus").remove();
+	 		$(".mars").remove();
+	 		$(".Jupiter").remove();
+	 		$(".Earth").remove();
+
+	 		$(".shotter").remove();
+	 		$(document).unbind(event.onTap);
+
+
+
+	 	/*
+	 	make a alert to teach players how to play
+	 	*/
+
+	 	alert('This is for level 3. In this level you should protect the Earth and make it do not break by the other planets');
+
+	 	//make some objects
+	 	for (var m=1; m<=3;m++)
+
+	 	{
+	 			var toplength = m * 100 * scale1;
+	 			var leftdistance1 = 100;
+	 			var leftdistance2 = 200;
+	 			var leftdistance3 = 300;
+	 			var leftdistance4 = 400;
+	 			var leftdistance5 = 500;
+	 			var leftdistance6 = 600;
+	 			var leftdistance7 = 700;
+	 			var leftdistance8 = 800;
+
+
+	 	  $("body").append("<div class='Mercury' style='top:"+ toplength +"px; left:"+ leftdistance1 +"px;transform:scale("+scale1+")'></div>");
+	 	  $("body").append("<div class='Venus' style='top:"+ toplength +"px; left:"+ leftdistance2 +"px;transform:scale("+scale1+")'></div>");
+			$("body").append("<div class='Earth' style='top:"+ toplength +"px; left:"+ leftdistance3 +"px;transform:scale("+scale1+")'></div>");
+	 	  $("body").append("<div class='mars' style='top:"+ toplength +"px; left:"+ leftdistance4 +"px;transform:scale("+scale1+")'></div>");
+	 		$("body").append("<div class='Jupiter' style='top:"+ toplength +"px; left:"+ leftdistance5 +"px;transform:scale("+scale1+")'></div>");
+	 		$("body").append("<div class='Saturn' style='top:"+ toplength +"px; left:"+ leftdistance6 +"px;transform:scale("+scale1+")'></div>");
+	 		$("body").append("<div class='Uranus' style='top:"+ toplength +"px; left:"+ leftdistance7 +"px;transform:scale("+scale1+")'></div>");
+	 		$("body").append("<div class='neptune' style='top:"+ toplength +"px; left:"+ leftdistance8 +"px;transform:scale("+scale1+")'></div>");
+	 	}
+
+	 		//Define the move direction and speed of objects
+	 			$(".Earth").moveTo(90);
+	 			$(".Earth").speed(0.3);
+				$(".Earth").moveTo(100);
+		   	$(".Earth").speed(0.1);
+	 			$(".Earth").autoBounceOff(true);
+
+	 			$(".mars").moveTo(90);
+	 			$(".mars").speed(0.3);
+	 			$(".mars").moveTo(100);
+	 			$(".mars").speed(0.1);
+	 			$(".mars").autoBounceOff(true);
+
+	 			$(".Jupiter").moveTo(90);
+	 			$(".Jupiter").speed(0.1);
+	 			$(".Jupiter").moveTo(100);
+	 			$(".Jupiter").speed(0.1);
+	 			$(".Jupiter").autoBounceOff(true);
+
+
+	 			$(".Mercury").moveTo(90);
+	 			$(".Mercury").speed(0.1);
+	 			$(".Mercury").moveTo(100);
+	 			$(".Mercury").speed(0.1);
+	 			$(".Mercury").autoBounceOff(true);
+
+	 			$(".Venus").moveTo(90);
+	 			$(".Venus").speed(0.1);
+	 			$(".Venus").moveTo(100);
+	 			$(".Venus").speed(0.1);
+	 			$(".Venus").autoBounceOff(true);
+
+	 			$(".neptune").moveTo(90);
+	 			$(".neptune").speed(0.1);
+	 			$(".neptune").moveTo(100);
+	 			$(".neptune").speed(0.1);
+	 			$(".neptune").autoBounceOff(true);
+
+	 			$(".Uranus").moveTo(90);
+	 			$(".Uranus").speed(0.1);
+	 			$(".Uranus").moveTo(100);
+	 			$(".Uranus").speed(0.1);
+	 			$(".Uranus").autoBounceOff(true);
+
+	 			$(".Saturn").moveTo(90);
+	 			$(".Saturn").speed(0.1);
+	 			$(".Saturn").moveTo(100);
+	 			$(".Saturn").speed(0.1);
+	 			$(".Saturn").autoBounceOff(true);
+	 		//Add a onCollision function
+	 			$(".Earth").onCollision(function(otherObject){
+	 			if(otherObject.hasClass("shotter"))
+				{
+					backgroundMusic.pause();
+ 				 $(".Mercury").remove();
+ 				 $(".neptune").remove();
+ 				 $(".Saturn").remove();
+ 				 $(".Uranus").remove();
+ 				 $(".Venus").remove();
+ 				 $(".mars").remove();
+ 				 $(".Jupiter").remove();
+ 				 this.remove()
+
+ 				 $("body").append("<div class='fontsize1'style='top:"+ topposition2 +"px;left:"+ leftposition +"px;transform:scale("+scale1+");'><p><strong><em><u>you loose the game because you should protect the Earth and make it do not break by other planets in this level!</u></em></strong></p></div>");
+	 	}
+
+
+if(otherObject.hasClass("Jupiter"))
+{
+	backgroundMusic.pause();
+	$(".Mercury").remove();
+	$(".neptune").remove();
+	$(".Saturn").remove();
+	$(".Uranus").remove();
+	$(".Venus").remove();
+	$(".mars").remove();
+	$(".Jupiter").remove();
+	this.remove()
+
+	$("body").append("<div class='fontsize1'style='top:"+ topposition2 +"px;left:"+ leftposition +"px;transform:scale("+scale1+");'><p><strong><em><u>you loose the game because you should protect the Earth and make it do not break by other planets in this level!</u></em></strong></p></div>");
+}
+
+if(otherObject.hasClass("mars"))
+{
+	backgroundMusic.pause();
+	$(".Mercury").remove();
+	$(".neptune").remove();
+	$(".Saturn").remove();
+	$(".Uranus").remove();
+	$(".Venus").remove();
+	$(".mars").remove();
+	$(".Jupiter").remove();
+	this.remove()
+
+	$("body").append("<div class='fontsize1'style='top:"+ topposition2 +"px;left:"+ leftposition +"px;transform:scale("+scale1+");'><p><strong><em><u>you loose the game because you should protect the Earth and make it do not break by other planets in this level!</u></em></strong></p></div>");
+}
+
+if(otherObject.hasClass("Mercury"))
+{
+	backgroundMusic.pause();
+	$(".Mercury").remove();
+	$(".neptune").remove();
+	$(".Saturn").remove();
+	$(".Uranus").remove();
+	$(".Venus").remove();
+	$(".mars").remove();
+	$(".Jupiter").remove();
+	this.remove()
+
+	$("body").append("<div class='fontsize1'style='top:"+ topposition2 +"px;left:"+ leftposition +"px;transform:scale("+scale1+");'><p><strong><em><u>you loose the game because you should protect the Earth and make it do not break by other planets in this level!</u></em></strong></p></div>");
+}
+
+if(otherObject.hasClass("neptune"))
+{
+	backgroundMusic.pause();
+	$(".Mercury").remove();
+	$(".neptune").remove();
+	$(".Saturn").remove();
+	$(".Uranus").remove();
+	$(".Venus").remove();
+	$(".mars").remove();
+	$(".Jupiter").remove();
+	this.remove()
+
+	$("body").append("<div class='fontsize1'style='top:"+ topposition2 +"px;left:"+ leftposition +"px;transform:scale("+scale1+");'><p><strong><em><u>you loose the game because you should protect the Earth and make it do not break by other planets in this level!</u></em></strong></p></div>");
+}
+
+if(otherObject.hasClass("Saturn"))
+{
+	backgroundMusic.pause();
+	$(".Mercury").remove();
+	$(".neptune").remove();
+	$(".Saturn").remove();
+	$(".Uranus").remove();
+	$(".Venus").remove();
+	$(".mars").remove();
+	$(".Jupiter").remove();
+	this.remove()
+
+	$("body").append("<div class='fontsize1'style='top:"+ topposition2 +"px;left:"+ leftposition +"px;transform:scale("+scale1+");'><p><strong><em><u>you loose the game because you should protect the Earth and make it do not break by other planets in this level!</u></em></strong></p></div>");
+}
+
+if(otherObject.hasClass("Uranus"))
+{
+	backgroundMusic.pause();
+	$(".Mercury").remove();
+	$(".neptune").remove();
+	$(".Saturn").remove();
+	$(".Uranus").remove();
+	$(".Venus").remove();
+	$(".mars").remove();
+	$(".Jupiter").remove();
+	this.remove()
+
+	$("body").append("<div class='fontsize1'style='top:"+ topposition2 +"px;left:"+ leftposition +"px;transform:scale("+scale1+");'><p><strong><em><u>you loose the game because you should protect the Earth and make it do not break by other planets in this level!</u></em></strong></p></div>");
+}
+
+if(otherObject.hasClass("Venus"))
+{
+	backgroundMusic.pause();
+	$(".Mercury").remove();
+	$(".neptune").remove();
+	$(".Saturn").remove();
+	$(".Uranus").remove();
+	$(".Venus").remove();
+	$(".mars").remove();
+	$(".Jupiter").remove();
+	this.remove()
+
+	$("body").append("<div class='fontsize1'style='top:"+ topposition2 +"px;left:"+ leftposition +"px;transform:scale("+scale1+");'><p><strong><em><u>you loose the game because you should protect the Earth and make it do not break by other planets in this level!</u></em></strong></p></div>");
+}
+
+
+
+	});
+
+	 	$(".mars").onCollision(function(otherObject){
+	 	if(otherObject.hasClass("shotter")){
+	 	 this.remove();
+	 }});
+
+	 $(".Jupiter").onCollision(function(otherObject){
+	 if(otherObject.hasClass("shotter")){
+	  this.remove();
+	 }});
+
+	 $(".Mercury").onCollision(function(otherObject){
+	 if(otherObject.hasClass("shotter")){
+	  this.remove();
+	 }});
+
+	 $(".Venus").onCollision(function(otherObject){
+	 if(otherObject.hasClass("shotter")){
+	  this.remove();
+	 }});
+
+	 $(".neptune").onCollision(function(otherObject){
+	 if(otherObject.hasClass("shotter")){
+	  this.remove();
+	 }});
+
+	 $(".Uranus").onCollision(function(otherObject){
+	 if(otherObject.hasClass("shotter")){
+	  this.remove();
+	 }});
+
+	 $(".Saturn").onCollision(function(otherObject){
+	 if(otherObject.hasClass("shotter")){
+	  this.remove();
+	}
+
+	});
+
+	$(document).onTap(function(event){
+
+ $("body").append("<div id='shotter"+shotter +"'style='transform:scale("+scale1+");'class='shotter'></div>");
+ $("#shotter" + shotter).moveTo(0);
+ $("#shotter" + shotter).speed(0.6);
+ $("#shotter" + shotter).css("bottom","0px");
+ $("#shotter" + shotter).css("left",event.clientX + "px");
+ shotter++;
+
+})
+
+	});
+
+ $("#btn4").onTap(function()
+
+
+{  $(".fontsize1").remove();
+	$(".fontsize2").remove();
+	$(".Mercury").remove();
+	$(".neptune").remove();
+	$(".Saturn").remove();
+	$(".Uranus").remove();
+	$(".Venus").remove();
+	$(".mars").remove();
+	$(".Jupiter").remove();
+	$(".Earth").remove();
+
+	$(".shotter").remove();
+
+$("body").append("<div class='fontsize1'style='top:"+ topposition2 +"px;left:"+ leftposition +"px;transform:scale("+scale1+");'><p><strong><em><u>protect Earth</u></em></strong></p><p>&nbsp;</p><p>developed by</p><p>Dingan Ma</p><p>ID:216328682</p><p>&nbsp;</p>  </div>");
+
+
+$("body").append("<div class='fontsize2'style='top:"+ topposition +"px;right:"+ rightposition +"px;transform:scale("+scale1+");'> <p><strong>There are three levels in this game, hope you can have fun and obtain some celestial knowledge in this game!</strong></p><p><strong> \(^o^)/</strong></p></div>");
+
+
+});
+
+$("#btn5").onTap(function()
+
+	{  backgroundMusic.pause();
+
+	});
+
+
+   });
+
+</script>
+
+<style type="text/css">
+body{
+ background-image:url(galaxy.jpg);
+ background-size: 100%
+ background-repeat: no-repeat;	}
+
+ #btn1
+   {   position: absolute;
+   top: 30px;
+ 	left: 30px;
+ 	width: 200px;
+ 	padding: 10px 5px;
+ 	color: red;
+ 	background-color: green;
+ 	border-radius: 10px;
+ 	font-size: 25px;
+ 	font-family: Verdana, Geneva, sans-serif;
+ 	text-align: center;
+ 	cursor:pointer;
+   }
+
+   #btn2
+ {   position: absolute;
+   top: 130px;
+   left: 30px;
+   width: 200px;
+   padding: 10px 5px;
+   color: red;
+   background-color: green;
+   border-radius: 10px;
+   font-size: 25px;
+   font-family: Verdana, Geneva, sans-serif;
+   text-align: center;
+   cursor:pointer;
+ }
+
+ #btn3
+ {   position: absolute;
+   top: 230px;
+   left: 30px;
+   width: 200px;
+   padding: 10px 5px;
+   color: red;
+   background-color: green;
+   border-radius: 10px;
+   font-size: 25px;
+   font-family: Verdana, Geneva, sans-serif;
+   text-align: center;
+   cursor:pointer;
+ }
+
+ #btn4
+ {   position: absolute;
+   top: 330px;
+   left: 30px;
+   width: 200px;
+   padding: 10px 5px;
+   color: red;
+   background-color: green;
+   border-radius: 10px;
+   font-size: 25px;
+   font-family: Verdana, Geneva, sans-serif;
+   text-align: center;
+   cursor:pointer;
+ }
+
+ #btn5
+ {   position: absolute;
+   top: 430px;
+   left: 30px;
+   width: 200px;
+   padding: 10px 5px;
+   color: red;
+   background-color: green;
+   border-radius: 10px;
+   font-size: 25px;
+   font-family: Verdana, Geneva, sans-serif;
+   text-align: center;
+   cursor:pointer;
+ }
+
+
+
+.Earth
+{ background-image:url(Earth.png);
+  background-size: 111px 111px;
+  width:111px;
+  height:111px;
+  position:absolute;
+  z-index:1;
+}
+
+.shotter
+{ background-image:url(shotter.png);
+  background-size: 47px 47px;
+  width:47px;
+  height:47px;
+  position:absolute;
+  z-index:1;
+}
+
+.leftwall
+{position:absolute;
+ z-index:1;
+ width:1px;
+ background-color:black;
+ height:100vh;
+ top:0px;
+ left:0px;
+	}
+
+.rightwall
+{position:absolute;
+ z-index:1;
+ width:1px;
+ background-color:black;
+ height:100vh;
+ top:0px;
+ right:0px;
+}
+
+.topwall
+{position:absolute;
+ z-index:1;
+ height:1px;
+ background-color:black;
+ width:100vw;
+ top:0px;
+}
+
+
+.mars
+{ background-image:url(Mars.png);
+  background-size:111px 111px;
+  width:111px;
+  height:111px;
+  position:absolute;
+  z-index:1;
+}
+
+.Venus
+{ background-image:url(Venus.png);
+  background-size:111px 111px;
+  width:111px;
+  height:111px;
+  position:absolute;
+  z-index:1;
+}
+
+.Jupiter
+{ background-image:url(Jupiter.png);
+  width:106px;
+  height:107px;
+  position:absolute;
+  z-index:1;
+}
+
+.Mercury
+{ background-image:url(Mercury.png);
+  width:111px;
+  height:111px;
+  position:absolute;
+  z-index:1;
+}
+
+.neptune
+{ background-image:url(neptune.png);
+  width:111px;
+  height:111px;
+  position:absolute;
+  z-index:1;
+}
+
+.Uranus
+{ background-image:url(Uranus.png);
+  width:111px;
+  height:111px;
+  position:absolute;
+  z-index:1;
+}
+
+.Saturn
+{ background-image:url(Saturn.png);
+  width:111px;
+  height:111px;
+  position:absolute;
+  z-index:1;
+}
+
+.fontsize1
+{
+	position: absolute;
+	width: 1046px;
+	padding: 5px 10px;
+	color:red;
+	border-radius: 20px;
+	font-size: 50px;
+	font-family: Edwardian Script ITC, Geneva, sans-serif;
+	text-align: center;
+
+}
+.btn{
+	position: absolute;
+		left: 30px;
+		width: 200px;
+		padding: 10px 5px;
+		color: red;
+		background-color: green;
+		border-radius: 10px;
+		font-size: 25px;
+		font-family: Verdana, Geneva, sans-serif;
+		text-align: center;
+		cursor:pointer;
+}
+
+.fontsize2 {
+	position: absolute;
+	width: 467px;
+	font-family: Cablibri, Geneva, sans-serif;
+	color:green;
+	font-size:30px;
+	text-shadow: 2px -1px 4px rgba(0, 0, 0, 1);
+}
+
+
+</style>
+</head>
+<body>
+
+  <div id="btn1">easy</div>
+  <div id="btn2">difficult</div>
+  <div id="btn3">challenge</div>
+  <div id="btn4">restart</div>
+  <div id="btn5">pause</div>
+
+
+<div class="leftwall"></div>
+<div class="rightwall"></div>
+<div class="topwall"></div>
+<div class="fontsize1"></div>
+<div class="fontsize2">
+</div>
+<audio id="backgroundmusic"><source src="song.mp3" type="audio/mpeg"></audio>
+</body>
+</html>
